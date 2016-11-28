@@ -1,7 +1,5 @@
 DBus = require './dbus-promise'
-
 dbus = new DBus()
-
 bus = dbus.getBus('system')
 
 SERVICE = 'org.freedesktop.systemd1'

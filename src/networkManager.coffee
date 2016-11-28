@@ -3,7 +3,6 @@ DBus = require './dbus-promise'
 _ = require 'lodash'
 
 dbus = new DBus()
-
 bus = dbus.getBus('system')
 
 systemd = require './systemd'

@@ -1,12 +1,10 @@
 Promise = require 'bluebird'
 DBus = require './dbus-promise'
-
+fs = Promise.promisifyAll(require('fs'))
 dbus = new DBus()
-
 bus = dbus.getBus('system')
 
 config = require './config'
-fs = Promise.promisifyAll(require('fs'))
 systemd = require './systemd'
 utils = require './utils'
 

@@ -3,7 +3,6 @@ Promise = require 'bluebird'
 execAsync = Promise.promisify(exec)
 
 config = require './config'
-
 hostapd = require './hostapd'
 dnsmasq = require './dnsmasq'
 
