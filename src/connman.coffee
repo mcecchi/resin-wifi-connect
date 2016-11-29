@@ -3,6 +3,7 @@ DBus = require './dbus-promise'
 fs = Promise.promisifyAll(require('fs'))
 dbus = new DBus()
 bus = dbus.getBus('system')
+_ = require 'lodash'
 
 config = require './config'
 systemd = require './systemd'
@@ -47,8 +48,7 @@ exports.setCredentials = (ssid, passphrase) ->
 
 exports.clearCredentials = ->
 	fs.unlinkAsync(config.persistentConfig)
-	.catch code: 'ENOENT', (e) ->
-		return
+	.catch(code: 'ENOENT', _.noop)
 
 exports.connect  = (timeout) ->
 	bus.getInterfaceAsync(SERVICE, WIFI_OBJECT, TECHNOLOGY_INTERFACE)

@@ -25,7 +25,7 @@ exports.stop = ->
 
 exports.isSetup = ->
 	getConnections()
-	.map(validateConnection)
+	.map(isConnectionValid)
 	.then (results) ->
 		return true in results
 
@@ -58,15 +58,15 @@ exports.clearCredentials = ->
 
 exports.connect  = (timeout) ->
 	getDevices()
-	.filter(validateDevice)
+	.filter(isDeviceValid)
 	.then (validDevices) ->
 		if validDevices.length is 0
-			throw ('No valid devices found.')
+			throw new Error('No valid devices found.')
 		getConnections()
-		.filter(validateConnection)
+		.filter(isConnectionValid)
 		.then (validConnections) ->
 			if validConnections.length is 0
-				throw ('No valid connections found.')
+				throw new Error('No valid connections found.')
 			bus.getInterfaceAsync(SERVICE, '/org/freedesktop/NetworkManager', 'org.freedesktop.NetworkManager')
 			.delay(1000) # Delay needed to avoid "Error: org.freedesktop.NetworkManager.UnknownConnection at Error (native)" when activating the connection
 			.then (manager) ->
@@ -109,7 +109,7 @@ deleteConnection = (connection) ->
 			if settings.connection.id not in WHITE_LIST
 				connection.DeleteAsync()
 
-validateConnection = (connection) ->
+isConnectionValid = (connection) ->
 	getConnection(connection)
 	.call('GetSettingsAsync')
 	.then (settings) ->
@@ -122,7 +122,7 @@ getDevices = ->
 getDevice = (device) ->
 	bus.getInterfaceAsync(SERVICE, device, 'org.freedesktop.NetworkManager.Device')
 
-validateDevice = (device) ->
+isDeviceValid = (device) ->
 	getDevice(device)
 	.call('getPropertyAsync', 'DeviceType')
 	.then (property) ->
