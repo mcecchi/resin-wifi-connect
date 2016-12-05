@@ -23,9 +23,8 @@ exports.isSetup = ->
 	fs.statAsync(config.persistentConfig)
 	.then ->
 		utils.copyFile(config.persistentConfig, config.connmanConfig)
-		.return(true)
-	.catch (e) ->
-		return false
+	.return(true)
+	.catchReturn(false)
 
 exports.setCredentials = (ssid, passphrase) ->
 	connection = """
@@ -72,5 +71,5 @@ exports.connect  = (timeout) ->
 
 			setTimeout ->
 				manager.removeListener('PropertyChanged', handler)
-				reject('Timed out')
+				reject(new Error('Timed out'))
 			, timeout

@@ -91,7 +91,7 @@ exports.connect  = (timeout) ->
 
 						setTimeout ->
 							manager.removeListener('StateChanged', handler)
-							reject('Timed out')
+							reject(new Error('Timed out'))
 						, timeout
 
 getConnections = ->

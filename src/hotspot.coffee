@@ -17,7 +17,6 @@ exports.start = (manager) ->
 	console.log('Stopping service, starting hotspot')
 
 	manager.stop()
-	.delay(2000) # Delay needed to give service time to stop
 	.then ->
 		execAsync('rfkill unblock wifi')
 	.then ->
@@ -42,4 +41,3 @@ exports.stop = (manager) ->
 	]
 	.then ->
 		manager.start()
-	.delay(2000) # Delay needed to give service time to start
