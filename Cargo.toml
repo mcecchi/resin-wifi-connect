@@ -1,0 +1,9 @@
+[package]
+name = "resin-wifi-connect"
+version = "0.1.0"
+authors = ["Joseph Roberts <joe@resin.io>"]
+
+[dependencies]
+iron = "*"
+staticfile = "*"
+mount = "*"
