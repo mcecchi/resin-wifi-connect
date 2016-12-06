@@ -31,16 +31,15 @@ exports.exists = (unit, mode = 'fail') ->
 
 waitUntilState = (unit, targetState) ->
 	currentState = null
-
-	promiseWhile((->
+	condition = -> 
 		currentState != targetState
-	), ->
+	action = -> 
 		getState(unit)
 		.then (state) ->
 			currentState = state
-		.delay(1000)	
-	).then ->
-		return
+		.delay(1000)
+
+	repeat(condition, action)
 
 getState = (unit) ->
 	bus.getInterfaceAsync(SERVICE, MANAGER_OBJECT, MANAGER_INTERFACE)
@@ -51,13 +50,10 @@ getState = (unit) ->
 	.then (unit) ->
 		unit.getPropertyAsync('ActiveState')
 
-promiseWhile = (condition, action) ->
-	resolver = Promise.defer()
-
-	l = ->
-		if !condition()
-			return resolver.resolve()
-		Promise.cast(action()).then(l).catch resolver.reject
-
-	process.nextTick l
-	resolver.promise
+repeat = (condition, action) ->
+	Promise.try(condition)
+	.then (bool) ->
+		return if not bool
+		Promise.try(action)
+		.then ->
+			repeat(condition, action)

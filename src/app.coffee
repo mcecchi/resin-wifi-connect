@@ -54,7 +54,7 @@ run = ->
 			hotspot.stop(manager)
 			.then ->
 				console.log('Connecting')
-				manager.connect(15000) # Delay needed to allow manager to connect
+				manager.connect(15000)
 			.then ->
 				console.log('Connected')
 				console.log('Exiting')
