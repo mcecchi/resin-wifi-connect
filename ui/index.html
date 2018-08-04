@@ -1,20 +1,34 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Resin WiFi chooser</title>
+		<title>WiFi Connect</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="js/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="js/bootstrap.min.js"></script>
+
+		<script src="/js/index.js"></script>
 		<link rel="shortcut icon" href="/img/favicon.png">
 
 		<style>
-			body{padding-top: 80px;}
-			#logo{margin-top: -4px;}
-		</style>
+			body {
+				padding-top: 80px;
+			}
 
-		<script src="/bower_components/jquery/dist/jquery.min.js"></script>
-		<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src="/js/index.js"></script>
+			#logo {
+				margin-top: -4px;
+			}
+
+			button {
+				margin-top: 7px;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -42,14 +56,22 @@
 								<select id='ssid-select' class="form-control" name='ssid'></select>
 							</div>
 						</div>
+						<div class="form-group" id="identity-group">
+							<label for="identity" class="control-label col-lg-2">user</label>
+							<div class="col-lg-6">
+								<input class="form-control" name="identity"></input>
+							</div>
+						</div>
 						<div class="form-group">
-							<label for="passphrase" class="control-label col-lg-2">Passphrase</label>
+							<label for="passphrase" class="control-label col-lg-2">passphrase</label>
 							<div class="col-lg-6">
 								<input type='password' class="form-control" name='passphrase'></input>
 							</div>
 						</div>
 						<div class="form-group">
-							<button type='submit' class='btn btn-success col-lg-3 col-lg-offset-3'>Connect</button>
+							<div class="col-lg-6 col-lg-offset-2">
+								<button type='submit' class='btn btn-success'>Connect</button>
+							</div>
 						</div>
 					</form>
 				</div>
